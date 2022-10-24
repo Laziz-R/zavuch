@@ -11,22 +11,25 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Teacher extends BaseEntity {
+public class Klass {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+
+    private Integer degree;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
-
-    @ManyToOne
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    @JoinColumn(name = "language_id")
+    private Language language;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Teacher teacher = (Teacher) o;
-        return id != null && Objects.equals(id, teacher.id);
+        Klass klass = (Klass) o;
+        return id != null && Objects.equals(id, klass.id);
     }
 
     @Override

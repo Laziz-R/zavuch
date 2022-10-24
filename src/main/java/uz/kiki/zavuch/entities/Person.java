@@ -1,19 +1,18 @@
 package uz.kiki.zavuch.entities;
 
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import lombok.Data;
+import java.util.Objects;
 
 @Entity
-@Data
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long personId;
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+public class Person extends BaseEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -29,4 +28,11 @@ public class Person {
 
     private Boolean gender;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Person person = (Person) o;
+        return id != null && Objects.equals(id, person.id);
+    }
 }
